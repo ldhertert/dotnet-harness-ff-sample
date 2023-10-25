@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="ff-dotnet-server-sdk" Version="1.2.1" />
+    <PackageReference Include="ff-dotnet-server-sdk" Version="1.2.2" />
   </ItemGroup>
 
 </Project>
