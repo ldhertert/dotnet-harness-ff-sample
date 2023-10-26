@@ -35,10 +35,3 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
-
-
-
-//Target target = io.harness.cfsdk.client.dto.Target.builder()
-//                .Name("User1") //can change with your target name
-//                .Identifier("user1@example.com") //can change with your target identifier
-//                .build();
