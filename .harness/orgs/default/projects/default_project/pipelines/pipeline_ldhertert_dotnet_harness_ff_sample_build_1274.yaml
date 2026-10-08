@@ -1,0 +1,38 @@
+pipeline:
+  id: pipeline_ldhertert_dotnet_harness_ff_sample_build_1274
+  name: pipeline_ldhertert_dotnet_harness_ff_sample_build_1274
+  stages:
+    - name: Build
+      id: build
+      runtime: cloud
+      clone:
+        enabled: true
+      cache:
+        enabled: true
+      steps:
+        - name: Install dotnet SDK 7
+          id: install_dotnet_sdk
+          run:
+            shell: bash
+            script: |-
+              # Install .NET 7 SDK
+              curl -sSL https://dot.net/v1/dotnet-install.sh -o dotnet-install.sh
+              chmod +x dotnet-install.sh
+              ./dotnet-install.sh --channel 7.0 --install-dir "$HOME/.dotnet"
+              export DOTNET_ROOT="$HOME/.dotnet"
+              export PATH="$DOTNET_ROOT:$DOTNET_ROOT/tools:$PATH"
+              echo "DOTNET_ROOT=$DOTNET_ROOT" >> $HARNESS_ENV
+              echo "PATH=$DOTNET_ROOT:$DOTNET_ROOT/tools:$PATH" >> $HARNESS_ENV
+              dotnet --version
+        - name: Restore Dependencies
+          id: restore_dependencies
+          run:
+            shell: bash
+            script: dotnet restore
+        - name: Build
+          id: build_project
+          run:
+            shell: bash
+            script: dotnet build --configuration Release --no-restore
+  tags:
+    onboarding: "true"
